@@ -137,37 +137,54 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onClose }) => {
     try {
       let owed_by: string[] = selectedUsers;
       let owed_amounts: number[] = [];
+      let perPersonAmount: number = 0;
   
       if (splitMethod === 'custom') {
         const otherUsersContributions = customContributions.filter(
           contribution => contribution.user !== username
         );
-        owed_amounts = otherUsersContributions.map(c => parseFloat(c.amount));
+        // owed_amounts = otherUsersContributions.map(c => parseFloat(c.amount));
+        for(const contribution of otherUsersContributions) {
+          const transactionData: TransactionRequest = {
+            method: 'add_expense',
+            paid_by: username,
+            owed_by: [contribution.user],
+            owed_amounts: [Number(contribution.amount)],
+            amount: Number(amount),
+            description: description
+          };
+
+          await sendTransaction(transactionData);
+        }
       } else if (splitMethod === 'equal') {
         const perPersonAmount = Number(amount) / (selectedUsers.length + 1);
-        owed_amounts = selectedUsers.map(() => perPersonAmount);
-      }
-  
-      const transactionData: TransactionRequest = {
-        method: 'add_expense',
-        paid_by: username,
-        owed_by: owed_by,
-        owed_amounts: owed_amounts,
-        amount: Number(amount),
-        description: description
-      };
+        // owed_amounts = selectedUsers.map(() => perPersonAmount);
+        for(const user of selectedUsers) {
+          const transactionData: TransactionRequest = {
+            method: 'add_expense',
+            paid_by: username,
+            owed_by: [user],
+            owed_amounts: [perPersonAmount],
+            amount: Number(amount),
+            description: description
+          };
 
-      const response = await fetch(`${baseUrl}/api/transactions/createTransaction`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(transactionData)
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to create transaction');
+          await sendTransaction(transactionData);
+        }
       }
+  
+      // const transactionData: TransactionRequest = {
+      //   method: 'add_expense',
+      //   paid_by: username,
+      //   owed_by: owed_by,
+      //   owed_amounts: owed_amounts,
+      //   amount: Number(amount),
+      //   description: description
+      // };
+  
+      // if (!response.ok) {
+      //   throw new Error('Failed to create transaction');
+      // }
   
       // Dispatch event to update balances
       window.dispatchEvent(new Event('expenseAdded'));
@@ -183,6 +200,21 @@ const AddExpense: React.FC<AddExpenseProps> = ({ onClose }) => {
       alert('Failed to create transaction. Please try again.');
     }
   };
+
+  async function sendTransaction(transactionData: TransactionRequest){
+    const response = await fetch('http://localhost:8080/api/transactions/createTransaction', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(transactionData)
+    });
+
+    if(!response.ok)
+    {
+      throw new Error('Failed to create transaction');
+    }
+  }
   // Add getFriends in useEffect
   useEffect(() => {
     const getFriends = async () => {
