@@ -15,10 +15,11 @@ if (rootElement) {
     // </React.StrictMode>
     <React.StrictMode>
     <BrowserRouter>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={ <App /> }>
         </Route>
-      </Routes>
+      </Routes> */}
+      <App/>
     </BrowserRouter>
   </React.StrictMode>
   );

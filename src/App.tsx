@@ -38,25 +38,26 @@ const AppContent: React.FC<{
       <Routes>
 
         <Route path="/" element={
-          showAuthPage ? (
-            <Auth onAuthenticate={() => { setIsAuthenticated(true); setShowAuthPage(false); }} />
-          ) : (
-            <PublicHomePage onLoginClick={() => setShowAuthPage(true)} />
-          )
+          // showAuthPage ? (
+          //   <Auth onAuthenticate={() => { setIsAuthenticated(true); setShowAuthPage(false); }} />
+          // ) : (
+          //   <PublicHomePage onLoginClick={() => setShowAuthPage(true)} />
+          // )
+          <PublicHomePage onLoginClick={() => navigate('/auth')}/>
         } />
-        <Route path="/auth/*" element={<Auth onAuthenticate={() => setIsAuthenticated(true)} />} />
-        {/* <Route path="/auth/*" element={<Auth onAuthenticate={() => setIsAuthenticated(true)} />}>
-          <Route index element={<LoginPage onAuthenticate={() => setIsAuthenticated(true)} />} />
-          <Route path="signup" element={<SignupPage onAuthenticate={() => setIsAuthenticated(true)} />} />
-        </Route> */}
-        {/* <Route path="/" element={<PublicHomePage onLoginClick={() => navigate('/login')} />} /> */}
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/add-expense" element={<AddExpense onClose={() => navigate('/')} />} />
-        <Route path="groups" element={<GroupsPage />} />
-        <Route path="friends" element={<FriendsPage />} />
-        <Route path="activity" element={<ActivityPage />} />
-        <Route path="account" element={<AccountPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />s
+          {/* <Route path="/auth/*" element={<Auth onAuthenticate={() => setIsAuthenticated(true)} />} /> */}
+          <Route path="/auth/*" element={<Auth onAuthenticate={() => setIsAuthenticated(true)} />}>
+            <Route index element={<LoginPage onAuthenticate={() => setIsAuthenticated(true)} />} />
+            <Route path="signup" element={<SignupPage onAuthenticate={() => setIsAuthenticated(true)} />} />
+          </Route>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/add-expense" element={<AddExpense onClose={() => navigate('/')} />} />
+          <Route path="groups" element={<GroupsPage />} />
+          <Route path="friends" element={<FriendsPage />} />
+          <Route path="activity" element={<ActivityPage />} />
+          <Route path="account" element={<AccountPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        {/* </Route> */}
       </Routes>
     </>
   );
