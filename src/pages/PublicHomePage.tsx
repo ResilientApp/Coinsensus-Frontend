@@ -7,6 +7,9 @@ import ActivityPage from './ActivityPage';
 import { useNavigate } from 'react-router-dom';
 import "./HomePage.css";
 import { Menu, X } from "lucide-react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
+import ClickSpark from './ClickSpark';
 
 const PublicHomePage = ({ onLoginClick }: { onLoginClick: () => void }) => {
   const navigate = useNavigate();
@@ -17,22 +20,28 @@ const PublicHomePage = ({ onLoginClick }: { onLoginClick: () => void }) => {
   }
 
   return (
+    <ClickSpark sparkColor='green' sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
     <div className="min-h-screen bg-gradient-to-br from-white via-teal-50 to-teal-100 flex flex-col justify-center items-center text-center px-4">
-      <nav id="nav" className="w-full flex items-center justify-between py-4 px-6  shadow-md relative" style={{ borderRadius: '2px', boxShadow: '200px', position: 'sticky'}}>
-        <div className="text-xl font-bold" style={{color:'white'}}>Coinsensus</div>
+      <nav id="nav" className=" flex items-center justify-between py-4 px-6  shadow-md relative" style={{ borderRadius: '2px', boxShadow: '200px', position: 'sticky' }}>
+        <div className="text-xl font-bold" style={{ color: 'white' }}>Coinsensus</div>
 
         {/* Desktop links */}
-        <div className="hidden sm:flex space-x-6 text-sm text-white" style={{fontSize:'18px'}}>
-          <a href="#features" className="hover:scale-110">Features</a>
-          <a href="#about" className="hover:scale-110">About</a>
-          <a href="#contact" className="hover:scale-110">Contact</a>
+        <div className="hidden sm:flex space-x-6 text-sm text-white" style={{ fontSize: '18px' }}>
+          <a
+            href="#features" className="hover:scale-110 hover:underline underline-offset-4 transition-all duration-300 ease-in-out" style={{ textDecorationColor: 'yellow' }}
+          >
+            Features
+          </a>
+
+          <a href="#about" className="hover:scale-110 hover:underline underline-offset-4 transition-all duration-300 ease-in-out" style={{ textDecorationColor: 'yellow' }}>About</a>
+          <a href="#contact" className="hover:scale-110 hover:underline underline-offset-4 transition-all duration-300 ease-in-out" style={{ textDecorationColor: 'yellow' }}>Contact</a>
         </div>
 
         {/* Login button (always visible) */}
         <button
           onClick={onLoginClick}
           className="hidden sm:block  text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 transition"
-          style={{fontSize:'18px'}}
+          style={{ fontSize: '18px' }}
         >
           Login / Sign Up
         </button>
@@ -151,7 +160,8 @@ const PublicHomePage = ({ onLoginClick }: { onLoginClick: () => void }) => {
           </div>
         </div>
       </footer>
-    </div>
+    </div >
+    </ClickSpark>
 
   );
 };
