@@ -7,7 +7,7 @@ import ActivityPage from './ActivityPage';
 import { useNavigate } from 'react-router-dom';
 import "./HomePage.css";
 import { Menu, X } from "lucide-react";
-import Particles from "react-tsparticles";
+import Particles from "react-tsparticles";  
 import { loadFull } from "tsparticles";
 import ClickSpark from './ClickSpark';
 
