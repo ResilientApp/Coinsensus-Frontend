@@ -11,6 +11,7 @@ import PublicHomePage from 'pages/PublicHomePage';
 import SignupPage from './pages/Signup';
 import LoginPage from './pages/Login';
 import LandingPage from 'pages/LandingPage';
+import ClickSpark from 'pages/ClickSpark';
 
 // Create a wrapper component to use navigation
 const AppContent: React.FC<{
@@ -35,6 +36,7 @@ const AppContent: React.FC<{
 
   return (
     <>
+    <ClickSpark sparkColor='green' sparkSize={10} sparkRadius={15} sparkCount={8} duration={400}>
       {isModalOpen && <AddExpense onClose={handleCloseModal} />}
       <Routes>
 
@@ -60,6 +62,7 @@ const AppContent: React.FC<{
         <Route path="*" element={<Navigate to="/" replace />} />
         {/* </Route> */}
       </Routes>
+      </ClickSpark>
     </>
   );
 };

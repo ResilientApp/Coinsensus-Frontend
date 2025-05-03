@@ -10,6 +10,8 @@ import { Menu, X } from "lucide-react";
 import Particles from "react-tsparticles";  
 import { loadFull } from "tsparticles";
 import ClickSpark from './ClickSpark';
+import ExpoLab from '../assets/images/expolab-icon.png';
+import ResilientDB from '../assets/images/resilientdb_logo_light-text-modern-v2-2.svg';
 
 const PublicHomePage = ({ onLoginClick }: { onLoginClick: () => void }) => {
   const navigate = useNavigate();
@@ -155,9 +157,11 @@ const PublicHomePage = ({ onLoginClick }: { onLoginClick: () => void }) => {
           </div>
         </div>
       </footer> */}
-      <footer className="w-full py-4 bg-white text-sm text-gray-500 border-t border-gray-200">
+      <footer className="w-full py-4 bg-black text-sm text-white border-t border-gray-200">
         <div className="w-full max-w-[90rem] mx-auto px-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
           <span>© {new Date().getFullYear()} Coinsensus. All rights reserved.</span>
+          <img src={ExpoLab} style={{width:'180px'}}></img>
+          <img src={ResilientDB} style={{width:'180px'}}></img>
           <div className="space-x-4">
             <a href="#privacy" className="hover:text-teal-600">Privacy</a>
             <a href="#terms" className="hover:text-teal-600">Terms</a>
